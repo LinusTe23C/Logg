@@ -1,0 +1,7 @@
+import random
+
+class Spelare:
+    def __init__(self):
+        self.hp = 10
+        self.styrka = 5
+        self.nivå = 1
