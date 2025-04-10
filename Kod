@@ -3,5 +3,30 @@ import random
 class Spelare:
     def __init__(self):
         self.hp = 10
-        self.styrka = 5
+        self.str = 5
         self.nivå = 1
+        self.ryggsäck = []
+
+    def visa_statistik(self):
+        print(f"HP: {self.hp}, STR: {self.str}, NIVÅ: {self.nivå}")
+
+    def visa_ryggsäck(self):
+        print("Ryggsäck:", ", ".join(self.ryggsäck) if self.ryggsäck else "Tom")
+class Spel:
+    def __init__(self):
+        self.spelare = Spelare()
+
+    def kör(self):
+        while True:
+            print("\n1 Visa statistik   2 Välj en dörr   3 Ryggsäck")
+            val = input("Val: ")
+            if val == "1":
+                self.spelare.visa_statistik()
+            elif val == "2":
+                self.välj_dörr()
+            elif val == "3":
+                self.spelare.visa_ryggsäck()
+            else:
+                print("Ogiltigt val.")
+
+
