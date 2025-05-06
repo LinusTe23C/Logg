@@ -1,0 +1,47 @@
+import random
+
+class Spelare:
+    def __init__(self):
+        self.hp = 10
+        self.str = 5
+        self.nivå = 1
+        self.ryggsäck = []
+
+    def visa_statistik(self):
+        print(f"HP: {self.hp}, STR: {self.str}, NIVÅ: {self.nivå}")
+
+    def visa_ryggsäck(self):
+        print("Ryggsäck:", ", ".join(self.ryggsäck) if self.ryggsäck else "Tom")
+
+class Spel:
+    def __init__(self):
+        self.spelare = Spelare()
+
+    def kör(self):
+        while True:
+            print("\n1 Visa statistik   2 Välj en dörr   3 Ryggsäck")
+            val = input("Val: ")
+            if val == "1":
+                self.spelare.visa_statistik()
+            elif val == "2":
+                self.välj_dörr()
+            elif val == "3":
+                self.spelare.visa_ryggsäck()
+            else:
+                print("Ogiltigt val.")
+    def välj_dörr(self):
+        print("\nDu står framför tre dörrar.")
+        val = input("1 Vänster   2 Framåt   3 Höger\nVälj 1, 2 eller 3: ")
+        if val in ["1", "2", "3"]:
+            self.händelse()
+        else:
+            print("Ogiltigt val.")
+            
+    def händelse(self):
+        val = random.choice(["monster", "kista", "fälla"])
+        if val == "monster":
+            self.monster()
+        elif val == "kista":
+            self.kista()
+        else:
+            self.fälla()
