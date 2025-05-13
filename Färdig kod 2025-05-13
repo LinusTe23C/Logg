@@ -1,0 +1,88 @@
+import random
+
+class Spelare:
+    def __init__(self):
+        self.hp = 10
+        self.str = 5
+        self.nivå = 1
+        self.ryggsäck = []
+
+    def visa_statistik(self):
+        print(f"HP: {self.hp}, STR: {self.str}, NIVÅ: {self.nivå}")
+
+    def visa_ryggsäck(self):
+        print("Ryggsäck:", ", ".join(self.ryggsäck) if self.ryggsäck else "Tom")
+class Spel:
+    def __init__(self):
+        self.spelare = Spelare()
+
+    def kör(self):
+        while True:
+            print("\n1 Visa statistik   2 Välj en dörr   3 Ryggsäck")
+            val = input("Val: ")
+            if val == "1":
+                self.spelare.visa_statistik()
+            elif val == "2":
+                self.välj_dörr()
+            elif val == "3":
+                self.spelare.visa_ryggsäck()
+            else:
+                print("Ogiltigt val.")
+    def välj_dörr(self):
+        print("\nDu står framför tre dörrar.")
+        val = input("1 Vänster   2 Framåt   3 Höger\nVälj 1, 2 eller 3: ")
+        if val in ["1", "2", "3"]:
+            self.händelse()
+        else:
+            print("Ogiltigt val.")
+
+    def händelse(self):
+        val = random.choice(["monster", "kista", "fälla"])
+        if val == "monster":
+            self.monster()
+        elif val == "kista":
+            self.kista()
+        else:
+            self.fälla()
+    def monster(self):
+        styrka = random.randint(3,10)
+        print(f"Det har kommit ett monster med styrka {styrka}!")
+        if self.spelare.str > styrka:
+            print("Du vann! +1 nivå")
+            self.spelare.nivå += 1
+        elif self.spelare.str < styrka:
+            print("Du förlorade och blev av med 1 HP")
+            self.spelare.hp -=1
+        else:
+            print("Oavgjort")
+        self.kolla_slut()
+    def kista(self):
+        sak = random.choice(["Svärd", "sköld", "Potion"])
+        bonus = random.randint(1,3)
+        print(f"Du hittade en {sak} som ger dig en styrka bonus på {bonus}")
+        self.spelare.str += bonus
+        self.spelare.ryggsäck.append(sak)
+    def fälla(self):
+        skada = random.randint(1,2)
+        print(f"Du tog {skada} skada")
+        self.spelare.hp -= skada
+        self.kolla_slut()
+    def kolla_slut(self):
+        if self.spelare.hp <= 0:
+            print("Du dog, spelet är över")
+            exit()
+        elif self.spelare.nivå >= 10:
+            print("Du klarade dig!")
+            exit()
+print("Vill du spela 1 = ja eller 2 = nej")
+spelaellerej = int(input("1 eller 2 ---->"))
+print(spelaellerej)
+if spelaellerej == 1:
+    Spel().kör()
+elif spelaellerej == 2:
+    exit()
+else:
+    print("Fel nummer men antar att du inte vill spela")
+    exit()
+
+        
